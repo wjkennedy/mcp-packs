@@ -1,0 +1,20 @@
+{
+  "objective": "Get a usable first version of Healthcare claims submission and denial management workflow in place with measurable outcomes.",
+  "current_state": "Solo operator; tools and process are partially defined; need a minimum viable workflow and templates.",
+  "constraints": {
+    "time": "2 hours/day for 14 days",
+    "budget": "$0-$500",
+    "compliance": "Follow applicable laws and internal policies."
+  },
+  "stakeholders": [
+    "Founder/operator",
+    "Prospective buyer/approver"
+  ],
+  "environment": {
+    "systems": [],
+    "data_sources": []
+  },
+  "assumptions": [
+    "We can start with a narrow slice and expand after first evidence."
+  ]
+}

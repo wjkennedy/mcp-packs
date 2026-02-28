@@ -1,0 +1,48 @@
+{
+  "pack_id": "identity-sso-scim-enterprise",
+  "version": "0.1.0",
+  "name": "Enterprise identity integration patterns (SSO, SCIM, RBAC)",
+  "domain": "Identity and Access Management",
+  "intent": "Provide a minimal, executable capability for: Enterprise identity integration patterns (SSO, SCIM, RBAC).",
+  "keywords": [
+    "SAML",
+    "OIDC",
+    "SCIM",
+    "RBAC",
+    "JIT provisioning"
+  ],
+  "triggers": [
+    "User needs help designing or improving enterprise identity integration patterns",
+    "User needs a decision rubric, workflow, templates, or telemetry for this domain",
+    "User lacks a specialist team and needs a minimum viable operating model"
+  ],
+  "anti_triggers": [
+    "User requests illegal, unsafe, or unethical actions",
+    "User requests professional legal/tax/medical advice beyond general information"
+  ],
+  "required_context_schema": "schemas/context.schema.json",
+  "output_schema": "schemas/output.schema.json",
+  "events_schema": "schemas/events.schema.json",
+  "prompts": {
+    "plan": "prompts/plan.md",
+    "execute": "prompts/execute.md",
+    "validate": "prompts/validate.md"
+  },
+  "examples": [
+    {
+      "name": "minimal",
+      "path": "examples/context.minimal.json"
+    }
+  ],
+  "telemetry": {
+    "event_namespace": "identity-sso-scim-enterprise",
+    "recommended_metrics": [
+      "cycle_time",
+      "defect_rate",
+      "throughput",
+      "approval_latency",
+      "conversion_rate"
+    ]
+  },
+  "created_at": "2026-02-28"
+}

@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "sales-comp-quota-crediting output",
+  "type": "object",
+  "required": [
+    "plan",
+    "procedure",
+    "decision_rules",
+    "artifacts",
+    "quality_gates",
+    "telemetry"
+  ],
+  "properties": {
+    "plan": {
+      "type": "object",
+      "required": [
+        "horizon",
+        "milestones"
+      ],
+      "properties": {
+        "horizon": {
+          "type": "string",
+          "description": "Time horizon (e.g., 14-day sprint)."
+        },
+        "milestones": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "procedure": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "step",
+          "rationale",
+          "success_check"
+        ],
+        "properties": {
+          "step": {
+            "type": "string"
+          },
+          "rationale": {
+            "type": "string"
+          },
+          "success_check": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "decision_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "if",
+          "then"
+        ],
+        "properties": {
+          "if": {
+            "type": "string"
+          },
+          "then": {
+            "type": "string"
+          },
+          "fallback": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "format",
+          "content_outline"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "doc",
+              "checklist",
+              "template",
+              "json",
+              "yaml",
+              "spreadsheet",
+              "email_copy",
+              "script"
+            ]
+          },
+          "content_outline": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "quality_gates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "telemetry": {
+      "type": "object",
+      "required": [
+        "events",
+        "metrics"
+      ],
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dashboards": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

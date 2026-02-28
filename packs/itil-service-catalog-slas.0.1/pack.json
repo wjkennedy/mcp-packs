@@ -1,0 +1,47 @@
+{
+  "pack_id": "itil-service-catalog-slas",
+  "version": "0.1.0",
+  "name": "ITIL service catalog and SLA/SLO design",
+  "domain": "IT Service Management",
+  "intent": "Provide a minimal, executable capability for: ITIL service catalog and SLA/SLO design.",
+  "keywords": [
+    "service definitions",
+    "SLAs",
+    "SLOs",
+    "escalations"
+  ],
+  "triggers": [
+    "User needs help designing or improving itil service catalog and sla/slo design",
+    "User needs a decision rubric, workflow, templates, or telemetry for this domain",
+    "User lacks a specialist team and needs a minimum viable operating model"
+  ],
+  "anti_triggers": [
+    "User requests illegal, unsafe, or unethical actions",
+    "User requests professional legal/tax/medical advice beyond general information"
+  ],
+  "required_context_schema": "schemas/context.schema.json",
+  "output_schema": "schemas/output.schema.json",
+  "events_schema": "schemas/events.schema.json",
+  "prompts": {
+    "plan": "prompts/plan.md",
+    "execute": "prompts/execute.md",
+    "validate": "prompts/validate.md"
+  },
+  "examples": [
+    {
+      "name": "minimal",
+      "path": "examples/context.minimal.json"
+    }
+  ],
+  "telemetry": {
+    "event_namespace": "itil-service-catalog-slas",
+    "recommended_metrics": [
+      "cycle_time",
+      "defect_rate",
+      "throughput",
+      "approval_latency",
+      "conversion_rate"
+    ]
+  },
+  "created_at": "2026-02-28"
+}

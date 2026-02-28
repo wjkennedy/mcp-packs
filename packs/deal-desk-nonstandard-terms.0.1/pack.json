@@ -1,0 +1,47 @@
+{
+  "pack_id": "deal-desk-nonstandard-terms",
+  "version": "0.1.0",
+  "name": "Deal desk approvals and non-standard contract terms triage",
+  "domain": "Commercial Operations",
+  "intent": "Provide a minimal, executable capability for: Deal desk approvals and non-standard contract terms triage.",
+  "keywords": [
+    "discount guardrails",
+    "approvals",
+    "redlines",
+    "exceptions"
+  ],
+  "triggers": [
+    "User needs help designing or improving deal desk approvals and non-standard contract terms triage",
+    "User needs a decision rubric, workflow, templates, or telemetry for this domain",
+    "User lacks a specialist team and needs a minimum viable operating model"
+  ],
+  "anti_triggers": [
+    "User requests illegal, unsafe, or unethical actions",
+    "User requests professional legal/tax/medical advice beyond general information"
+  ],
+  "required_context_schema": "schemas/context.schema.json",
+  "output_schema": "schemas/output.schema.json",
+  "events_schema": "schemas/events.schema.json",
+  "prompts": {
+    "plan": "prompts/plan.md",
+    "execute": "prompts/execute.md",
+    "validate": "prompts/validate.md"
+  },
+  "examples": [
+    {
+      "name": "minimal",
+      "path": "examples/context.minimal.json"
+    }
+  ],
+  "telemetry": {
+    "event_namespace": "deal-desk-nonstandard-terms",
+    "recommended_metrics": [
+      "cycle_time",
+      "defect_rate",
+      "throughput",
+      "approval_latency",
+      "conversion_rate"
+    ]
+  },
+  "created_at": "2026-02-28"
+}

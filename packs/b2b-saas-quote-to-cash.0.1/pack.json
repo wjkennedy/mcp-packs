@@ -1,0 +1,50 @@
+{
+  "pack_id": "b2b-saas-quote-to-cash",
+  "version": "0.1.0",
+  "name": "Quote-to-Cash funnel for B2B SaaS",
+  "domain": "Revenue Operations",
+  "intent": "Provide a minimal, executable capability for: Quote-to-Cash funnel for B2B SaaS.",
+  "keywords": [
+    "CPQ",
+    "order form",
+    "billing",
+    "invoicing",
+    "renewals",
+    "ARR",
+    "bookings"
+  ],
+  "triggers": [
+    "User needs help designing or improving quote-to-cash funnel for b2b saas",
+    "User needs a decision rubric, workflow, templates, or telemetry for this domain",
+    "User lacks a specialist team and needs a minimum viable operating model"
+  ],
+  "anti_triggers": [
+    "User requests illegal, unsafe, or unethical actions",
+    "User requests professional legal/tax/medical advice beyond general information"
+  ],
+  "required_context_schema": "schemas/context.schema.json",
+  "output_schema": "schemas/output.schema.json",
+  "events_schema": "schemas/events.schema.json",
+  "prompts": {
+    "plan": "prompts/plan.md",
+    "execute": "prompts/execute.md",
+    "validate": "prompts/validate.md"
+  },
+  "examples": [
+    {
+      "name": "minimal",
+      "path": "examples/context.minimal.json"
+    }
+  ],
+  "telemetry": {
+    "event_namespace": "b2b-saas-quote-to-cash",
+    "recommended_metrics": [
+      "cycle_time",
+      "defect_rate",
+      "throughput",
+      "approval_latency",
+      "conversion_rate"
+    ]
+  },
+  "created_at": "2026-02-28"
+}

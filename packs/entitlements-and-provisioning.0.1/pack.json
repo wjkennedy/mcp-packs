@@ -1,0 +1,47 @@
+{
+  "pack_id": "entitlements-and-provisioning",
+  "version": "0.1.0",
+  "name": "Customer entitlements and provisioning model",
+  "domain": "Product Operations",
+  "intent": "Provide a minimal, executable capability for: Customer entitlements and provisioning model.",
+  "keywords": [
+    "access rights",
+    "license seats",
+    "feature flags",
+    "tenancy"
+  ],
+  "triggers": [
+    "User needs help designing or improving customer entitlements and provisioning model",
+    "User needs a decision rubric, workflow, templates, or telemetry for this domain",
+    "User lacks a specialist team and needs a minimum viable operating model"
+  ],
+  "anti_triggers": [
+    "User requests illegal, unsafe, or unethical actions",
+    "User requests professional legal/tax/medical advice beyond general information"
+  ],
+  "required_context_schema": "schemas/context.schema.json",
+  "output_schema": "schemas/output.schema.json",
+  "events_schema": "schemas/events.schema.json",
+  "prompts": {
+    "plan": "prompts/plan.md",
+    "execute": "prompts/execute.md",
+    "validate": "prompts/validate.md"
+  },
+  "examples": [
+    {
+      "name": "minimal",
+      "path": "examples/context.minimal.json"
+    }
+  ],
+  "telemetry": {
+    "event_namespace": "entitlements-and-provisioning",
+    "recommended_metrics": [
+      "cycle_time",
+      "defect_rate",
+      "throughput",
+      "approval_latency",
+      "conversion_rate"
+    ]
+  },
+  "created_at": "2026-02-28"
+}

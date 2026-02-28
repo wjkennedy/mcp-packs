@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "real-estate-deal-analysis events",
+  "type": "object",
+  "properties": {
+    "event_name": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "actor": {
+      "type": "string"
+    },
+    "entity_id": {
+      "type": "string"
+    },
+    "properties": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "event_name",
+    "timestamp"
+  ]
+}

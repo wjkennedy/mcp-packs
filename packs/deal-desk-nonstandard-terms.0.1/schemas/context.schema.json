@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "deal-desk-nonstandard-terms context",
+  "type": "object",
+  "required": [
+    "objective",
+    "current_state",
+    "constraints"
+  ],
+  "properties": {
+    "objective": {
+      "type": "string",
+      "description": "What success looks like in measurable terms."
+    },
+    "current_state": {
+      "type": "string",
+      "description": "How things work today; include tools, policies, pain points."
+    },
+    "constraints": {
+      "type": "object",
+      "required": [
+        "time",
+        "budget",
+        "compliance"
+      ],
+      "properties": {
+        "time": {
+          "type": "string",
+          "description": "Time available (e.g., 2 hours/day for 2 weeks)."
+        },
+        "budget": {
+          "type": "string",
+          "description": "Budget constraints (e.g., $0 tools, $X)."
+        },
+        "compliance": {
+          "type": "string",
+          "description": "Relevant compliance/security/legal constraints."
+        }
+      }
+    },
+    "stakeholders": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Roles impacted (buyer, approver, operator)."
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "systems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Relevant systems/tools."
+        },
+        "data_sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}
