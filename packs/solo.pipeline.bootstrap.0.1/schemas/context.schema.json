@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "solo.pipeline.bootstrap.context.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "org": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "time_zone": {
+          "type": "string"
+        },
+        "offer_domain": {
+          "type": "string",
+          "description": "High-level domain: work management, software delivery, strategic planning"
+        },
+        "credibility_assets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "case studies, partner badges, certifications, talks, etc."
+        }
+      },
+      "required": [
+        "name",
+        "offer_domain"
+      ]
+    },
+    "target_market": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ecosystem": {
+          "type": "string",
+          "enum": [
+            "Atlassian customers",
+            "Atlassian partners",
+            "Atlassian marketplace vendors",
+            "Mixed"
+          ]
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "e.g., mid-market SaaS, regulated enterprise, public sector"
+        },
+        "geo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "countries/regions"
+        },
+        "account_size": {
+          "type": "string",
+          "description": "employee range or revenue"
+        },
+        "buyer_personas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "e.g., VP Eng, Head of Delivery, PMO Director, ITSM Lead"
+        }
+      },
+      "required": [
+        "ecosystem"
+      ]
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "bandwidth_hours_per_week": {
+          "type": "number",
+          "minimum": 0
+        },
+        "budget_usd_per_month": {
+          "type": "number",
+          "minimum": 0
+        },
+        "delivery_capacity": {
+          "type": "string",
+          "description": "what you can deliver in next 30 days"
+        },
+        "tools_stack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "CRM/email/calendar/website/analytics tools you have"
+        }
+      }
+    },
+    "current_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pipeline": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "active_opportunities": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "meetings_booked_last_30d": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "inbound_leads_last_30d": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "existing_relationships": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "friendly accounts, past clients, partners to warm start"
+        }
+      }
+    },
+    "offer_preferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preferred_wedge_offer": {
+          "type": "string",
+          "description": "If you already have a preferred wedge, name it"
+        },
+        "pricing_posture": {
+          "type": "string",
+          "enum": [
+            "value-based",
+            "fixed-fee",
+            "time-and-materials",
+            "hybrid"
+          ],
+          "default": "fixed-fee"
+        },
+        "min_paid_diagnostic_fee_usd": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_paid_diagnostic_duration_days": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  },
+  "required": [
+    "org",
+    "target_market"
+  ],
+  "examples": [
+    {
+      "org": {
+        "name": "Example Consulting Co.",
+        "offer_domain": "Work Management, Software Delivery, Strategic Planning",
+        "time_zone": "America/New_York"
+      },
+      "target_market": {
+        "ecosystem": "Atlassian customers",
+        "buyer_personas": [
+          "VP Engineering",
+          "Head of Delivery",
+          "PMO Director"
+        ]
+      },
+      "current_state": {
+        "pipeline": {
+          "active_opportunities": 0,
+          "meetings_booked_last_30d": 0,
+          "inbound_leads_last_30d": 0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "pack_id": "solo.pipeline.bootstrap",
+  "name": "Solo: Pipeline Bootstrap for Atlassian-Customer Consulting",
+  "version": "0.1.0",
+  "domain_tags": [
+    "bootstrap",
+    "pipeline",
+    "outbound",
+    "consulting",
+    "atlassian",
+    "b2b",
+    "solo-founder",
+    "sales-ops"
+  ],
+  "summary": "Bootstraps a consulting pipeline fast for a solo operator targeting existing Atlassian customers. Produces a 14-day pipeline sprint plan, wedge offer, ICP/triggers, outreach sequences, discovery scripts, proposal scaffolds, and telemetry events with strict minimum viable context.",
+  "compat": {
+    "a9_pack_format": "0.1"
+  },
+  "selection": {
+    "intent": "Create a working outbound-to-paid-diagnostic pipeline in <=14 days for a solo founder with agent support.",
+    "triggers": [
+      "No active pipeline or <3 opportunities in any stage",
+      "Need to generate meetings fast",
+      "Existing service capability but unclear wedge offer",
+      "Target buyers are known ecosystem (Atlassian customers/partners)"
+    ],
+    "anti_triggers": [
+      "You already have a stable inbound funnel producing >10 qualified meetings/month",
+      "You are doing enterprise RFP-only motions with long procurement cycles and no ability to sell a diagnostic"
+    ]
+  },
+  "schemas": {
+    "context": "schemas/context.schema.json",
+    "output": "schemas/output.schema.json",
+    "events": "schemas/events.schema.json"
+  },
+  "tools": {
+    "allowed": [
+      "web.search (optional for list building and ecosystem intel)",
+      "crm.write (optional)",
+      "email.send (optional)",
+      "calendar.schedule (optional)",
+      "docs.generate (optional)"
+    ],
+    "disallowed": [
+      "fabricating pipeline metrics",
+      "sending outreach without human approval",
+      "claiming Atlassian partnership status unless verified in context"
+    ]
+  },
+  "runtime_contract": {
+    "needs_context_field": "needs_context",
+    "missing_fields_field": "missing_fields",
+    "idempotency": "If the same context is provided, outputs should be stable except for randomized A/B copy variants which must be labeled.",
+    "safety": "Avoid deceptive impersonation; require approval gates before external communication."
+  },
+  "definitions": {
+    "wedge_offer": "A narrow, low-risk, fixed-scope engagement designed to convert interest into a paid diagnostic quickly and expand into larger work.",
+    "paid_diagnostic": "Fixed fee, fixed timeline engagement that produces tangible artifacts (scorecard, backlog, roadmap) and de-risks a larger implementation."
+  },
+  "primary_outcomes": [
+    "A single default wedge offer with clear deliverables, timeline, and pricing bands",
+    "A target account and persona definition with triggers and disqualifiers",
+    "A 14-day pipeline sprint plan with daily operating cadence",
+    "Outreach sequences (email/LinkedIn) and call scripts that close to a paid diagnostic",
+    "Telemetry event taxonomy to measure throughput (touches\u2192replies\u2192calls\u2192proposals\u2192wins)"
+  ]
+}

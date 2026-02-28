@@ -1,0 +1,57 @@
+{
+  "org": {
+    "name": "<YOUR FIRM NAME>",
+    "offer_domain": "Work Management, Software Delivery, Strategic Planning",
+    "time_zone": "America/New_York",
+    "credibility_assets": [
+      "Existing Atlassian customer relationships",
+      "Consulting delivery experience (anonymized case notes acceptable)"
+    ]
+  },
+  "target_market": {
+    "ecosystem": "Atlassian customers",
+    "buyer_personas": [
+      "VP Engineering",
+      "Head of Delivery",
+      "PMO Director",
+      "ITSM Lead"
+    ],
+    "segments": [
+      "Mid-market tech",
+      "Professional services",
+      "Regulated (light)"
+    ],
+    "geo": [
+      "North America"
+    ]
+  },
+  "current_state": {
+    "pipeline": {
+      "active_opportunities": 0,
+      "meetings_booked_last_30d": 0,
+      "inbound_leads_last_30d": 0
+    },
+    "existing_relationships": [
+      "Past client A (warm intro possible)",
+      "Marketplace vendor partner lead",
+      "Atlassian solution partner contact"
+    ]
+  },
+  "constraints": {
+    "bandwidth_hours_per_week": 10,
+    "budget_usd_per_month": 500,
+    "delivery_capacity": "Can deliver one fixed-scope diagnostic in parallel with light implementation support",
+    "tools_stack": [
+      "Google Workspace",
+      "Calendly",
+      "HubSpot (free)",
+      "LinkedIn",
+      "Docs/Slides"
+    ]
+  },
+  "offer_preferences": {
+    "pricing_posture": "fixed-fee",
+    "min_paid_diagnostic_fee_usd": 5000,
+    "max_paid_diagnostic_duration_days": 10
+  }
+}

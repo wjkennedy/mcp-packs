@@ -1,0 +1,264 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "solo.pipeline.bootstrap.output.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "needs_context": {
+      "type": "boolean"
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "situation_summary": {
+      "type": "string"
+    },
+    "default_wedge_offer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "who_its_for": {
+          "type": "string"
+        },
+        "promise": {
+          "type": "string"
+        },
+        "timeline": {
+          "type": "string"
+        },
+        "deliverables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "price_band": {
+          "type": "string"
+        },
+        "expansion_path": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "promise",
+        "timeline",
+        "deliverables"
+      ]
+    },
+    "icp_and_triggers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "icp": {
+          "type": "string"
+        },
+        "buyer_personas": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "triggers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "disqualifiers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "icp",
+        "buyer_personas",
+        "triggers"
+      ]
+    },
+    "fourteen_day_sprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "north_star": {
+          "type": "string"
+        },
+        "daily_cadence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "day_by_day": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "day": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 14
+              },
+              "focus": {
+                "type": "string"
+              },
+              "tasks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "success_checks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "day",
+              "focus",
+              "tasks"
+            ]
+          }
+        }
+      },
+      "required": [
+        "north_star",
+        "daily_cadence",
+        "day_by_day"
+      ]
+    },
+    "assets_to_build": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "asset": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "minimum_viable": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset",
+          "purpose",
+          "minimum_viable"
+        ]
+      }
+    },
+    "outreach_sequences": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "email_sequence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "linkedin_sequence": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "voicemail_optional": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "email_sequence",
+        "linkedin_sequence"
+      ]
+    },
+    "call_scripts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fit_check_15min": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "discovery_45min": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "close_to_paid_diagnostic": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "fit_check_15min",
+        "discovery_45min",
+        "close_to_paid_diagnostic"
+      ]
+    },
+    "telemetry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "targets_first_14_days": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "events",
+        "metrics",
+        "targets_first_14_days"
+      ]
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "needs_context",
+    "missing_fields"
+  ]
+}

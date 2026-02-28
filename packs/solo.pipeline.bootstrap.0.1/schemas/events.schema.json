@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "solo.pipeline.bootstrap.events.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ts": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "event": {
+            "type": "string",
+            "enum": [
+              "account_sourced",
+              "touch_sent",
+              "touch_bounced",
+              "reply_received",
+              "fit_check_booked",
+              "fit_check_completed",
+              "discovery_booked",
+              "discovery_completed",
+              "proposal_sent",
+              "proposal_accepted",
+              "deal_won",
+              "deal_lost",
+              "next_action_set"
+            ]
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "email",
+              "linkedin",
+              "phone",
+              "partner",
+              "web",
+              "other"
+            ]
+          },
+          "account": {
+            "type": "string"
+          },
+          "persona": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "ts",
+          "event"
+        ]
+      }
+    }
+  },
+  "required": [
+    "events"
+  ]
+}
