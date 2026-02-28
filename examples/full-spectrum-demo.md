@@ -17,19 +17,20 @@ pip install "mcp[cli]"
 python server.py --packs-dir ./packs
 ```
 
-In another terminal (or your MCP-aware client), keep these env vars handy:
+The commands below use the standalone CLI installed via `pip install "mcp[cli]"`. Each invocation follows the shape:
 
 ```bash
-export MCP_ENDPOINT="pack-registry"
-export MCP_CMD="codex mcp call $MCP_ENDPOINT"
+mcp call <registered-server-name> <tool-name> [--input @/path/to/context.json]
 ```
+
+If you’re running inside the Codex TUI, use `/mcp call …` with the same arguments. The legacy `codex mcp` subcommands only register/list servers; they do not execute tools.
 
 ## 1. Funnel activation pack
 
 ### Describe / Requirements
 ```bash
-$MCP_CMD pack.funnel.activation-trial-to-paid.describe
-$MCP_CMD pack.funnel.activation-trial-to-paid.requirements
+mcp call pack-registry pack.funnel.activation-trial-to-paid.describe
+mcp call pack-registry pack.funnel.activation-trial-to-paid.requirements
 ```
 
 ### Plan / Execute
@@ -90,8 +91,8 @@ cat <<'EOF' > /tmp/funnel-context.json
 }
 EOF
 
-$MCP_CMD pack.funnel.activation-trial-to-paid.plan @/tmp/funnel-context.json | tee /tmp/funnel-plan.json
-$MCP_CMD pack.funnel.activation-trial-to-paid.execute @/tmp/funnel-context.json | tee /tmp/funnel-execute.json
+mcp call pack-registry pack.funnel.activation-trial-to-paid.plan --input @/tmp/funnel-context.json | tee /tmp/funnel-plan.json
+mcp call pack-registry pack.funnel.activation-trial-to-paid.execute --input @/tmp/funnel-context.json | tee /tmp/funnel-execute.json
 ```
 
 ### Validate
@@ -102,15 +103,15 @@ cat <<'EOF' > /tmp/funnel-validate.json
   "outputs": $(cat /tmp/funnel-execute.json)
 }
 EOF
-$MCP_CMD pack.funnel.activation-trial-to-paid.validate @/tmp/funnel-validate.json
+mcp call pack-registry pack.funnel.activation-trial-to-paid.validate --input @/tmp/funnel-validate.json
 ```
 
 ## 2. Quote-to-cash pack
 
 ### Describe / Requirements
 ```bash
-$MCP_CMD pack.b2b-saas-quote-to-cash.describe
-$MCP_CMD pack.b2b-saas-quote-to-cash.requirements
+mcp call pack-registry pack.b2b-saas-quote-to-cash.describe
+mcp call pack-registry pack.b2b-saas-quote-to-cash.requirements
 ```
 
 ### Plan / Execute
@@ -137,8 +138,8 @@ cat <<'EOF' > /tmp/qtc-context.json
 }
 EOF
 
-$MCP_CMD pack.b2b-saas-quote-to-cash.plan @/tmp/qtc-context.json | tee /tmp/qtc-plan.json
-$MCP_CMD pack.b2b-saas-quote-to-cash.execute @/tmp/qtc-context.json | tee /tmp/qtc-execute.json
+mcp call pack-registry pack.b2b-saas-quote-to-cash.plan --input @/tmp/qtc-context.json | tee /tmp/qtc-plan.json
+mcp call pack-registry pack.b2b-saas-quote-to-cash.execute --input @/tmp/qtc-context.json | tee /tmp/qtc-execute.json
 ```
 
 ### Validate
@@ -149,15 +150,15 @@ cat <<'EOF' > /tmp/qtc-validate.json
   "outputs": $(cat /tmp/qtc-execute.json)
 }
 EOF
-$MCP_CMD pack.b2b-saas-quote-to-cash.validate @/tmp/qtc-validate.json
+mcp call pack-registry pack.b2b-saas-quote-to-cash.validate --input @/tmp/qtc-validate.json
 ```
 
 ## 3. SEV1 triage & escalation pack
 
 ### Describe / Requirements
 ```bash
-$MCP_CMD pack.devops.sre.sev1.triage.escalation.describe
-$MCP_CMD pack.devops.sre.sev1.triage.escalation.requirements
+mcp call pack-registry pack.devops.sre.sev1.triage.escalation.describe
+mcp call pack-registry pack.devops.sre.sev1.triage.escalation.requirements
 ```
 
 ### Plan / Execute
@@ -226,8 +227,8 @@ cat <<'EOF' > /tmp/sev1-context.json
 }
 EOF
 
-$MCP_CMD pack.devops.sre.sev1.triage.escalation.plan @/tmp/sev1-context.json | tee /tmp/sev1-plan.json
-$MCP_CMD pack.devops.sre.sev1.triage.escalation.execute @/tmp/sev1-context.json | tee /tmp/sev1-execute.json
+mcp call pack-registry pack.devops.sre.sev1.triage.escalation.plan --input @/tmp/sev1-context.json | tee /tmp/sev1-plan.json
+mcp call pack-registry pack.devops.sre.sev1.triage.escalation.execute --input @/tmp/sev1-context.json | tee /tmp/sev1-execute.json
 ```
 
 ### Validate
@@ -238,7 +239,7 @@ cat <<'EOF' > /tmp/sev1-validate.json
   "outputs": $(cat /tmp/sev1-execute.json)
 }
 EOF
-$MCP_CMD pack.devops.sre.sev1.triage.escalation.validate @/tmp/sev1-validate.json
+mcp call pack-registry pack.devops.sre.sev1.triage.escalation.validate --input @/tmp/sev1-validate.json
 ```
 
 ## Wrapping up
