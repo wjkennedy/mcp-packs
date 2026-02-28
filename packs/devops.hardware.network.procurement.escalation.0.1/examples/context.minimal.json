@@ -1,0 +1,66 @@
+{
+  "request_id": "example-001",
+  "domain": "DevOps & Infrastructure Engineering",
+  "category": "devops-hardware-network-procurement-escalation",
+  "severity": "SEV1",
+  "incident_start_utc": "2026-02-28T15:05:00Z",
+  "current_status": "investigating",
+  "services_affected": [
+    "example-service"
+  ],
+  "customer_impact": "Increased 5xx errors for most customers.",
+  "blast_radius": "global",
+  "symptoms": [
+    "Persistent I/O latency",
+    "RAID rebuild",
+    "application timeouts",
+    "suspected storage controller fault."
+  ],
+  "recent_changes": [
+    "No confirmed deploy correlation"
+  ],
+  "environment": {
+    "platform": "hybrid",
+    "regions": [
+      "us-east-1",
+      "eu-west-1"
+    ],
+    "clusters": [
+      "prod-a",
+      "prod-b"
+    ]
+  },
+  "telemetry": {
+    "metrics_available": true,
+    "logs_available": true,
+    "traces_available": false,
+    "known_gaps": [
+      "distributed tracing not enabled end-to-end"
+    ]
+  },
+  "constraints": {
+    "change_freeze": false,
+    "risk_tolerance": "medium",
+    "engineering_bandwidth": "available"
+  },
+  "stakeholders": {
+    "incident_commander": "IC-oncall",
+    "communications_lead": "Comms-oncall",
+    "l3_oncall": "L3-primary",
+    "l4_platform": "L4-platform"
+  },
+  "vendors": [
+    "cloud-provider",
+    "cdn-provider"
+  ],
+  "runbooks": [
+    "link-to-runbook"
+  ],
+  "sla_slo": {
+    "sla_name": "Customer API SLA",
+    "slo_targets": [
+      "99.9% availability"
+    ],
+    "error_budget_status": "burning"
+  }
+}

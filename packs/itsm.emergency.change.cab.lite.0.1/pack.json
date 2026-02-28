@@ -1,0 +1,77 @@
+{
+  "pack_id": "itsm.emergency.change.cab.lite",
+  "name": "Emergency Change Management (CAB-lite) for Severe Outages",
+  "version": "0.1.0",
+  "domain_tags": [
+    "audit-trail",
+    "cab",
+    "change-record",
+    "decision-tree",
+    "devops",
+    "emergency-change",
+    "escalation",
+    "it-service-management",
+    "itsm",
+    "l3",
+    "l4",
+    "outage",
+    "rca",
+    "risk-assessment",
+    "rollback-plan",
+    "standard-change"
+  ],
+  "summary": "Escalation-grade incident/problem/change workflow for 'Emergency Change Management (CAB-lite) for Severe Outages'. Produces decision-tree analysis, L3/L4 handoff artifacts, and best-practice service delivery documentation (timeline, decision log, comms, RCA outline).",
+  "compat": {
+    "a9_pack_format": "0.1"
+  },
+  "selection": {
+    "intent": "Progress a severe outage/problem/change to mitigation and root cause with decision-tree analysis and escalation-ready documentation for IT Service Management.",
+    "triggers": [
+      "no safe rollback",
+      "data model migration required",
+      "touches security/auth path"
+    ],
+    "anti_triggers": [
+      "Routine SEV3/SEV4 incidents with a known runbook that resolves reliably",
+      "Tasks that are purely user-training or documentation with no operational risk",
+      "Requests to skip approvals or change controls in regulated environments"
+    ]
+  },
+  "schemas": {
+    "context": "schemas/context.schema.json",
+    "output": "schemas/output.schema.json",
+    "events": "schemas/events.schema.json"
+  },
+  "tools": {
+    "allowed": [
+      "itsm.ticket.read/write",
+      "chatops.post",
+      "observability.query",
+      "runbook.execute (human-in-the-loop)",
+      "change.manage (CAB-lite when needed)",
+      "vendor.support (cloud/CDN/ISP/hardware)"
+    ],
+    "disallowed": [
+      "fabricating evidence or timestamps",
+      "making production changes without recorded approvals when required",
+      "disabling security controls without explicit security approval",
+      "claiming vendor findings unless provided in context"
+    ]
+  },
+  "runtime_contract": {
+    "needs_context_field": "needs_context",
+    "missing_fields_field": "missing_fields",
+    "idempotency": "Given identical context, outputs should be stable aside from clearly labeled optional variants.",
+    "safety": "Prefer reversible mitigations; require explicit approval gates for risky changes; retain evidence when security/data integrity is implicated."
+  },
+  "definitions": {
+    "decision_log": "A running log of key decisions, including rationale and the alternatives considered.",
+    "escalation_packet": "A concise handoff bundle for L3/L4: facts, attempts, outcomes, hypotheses, and requested actions."
+  },
+  "primary_outcomes": [
+    "A prioritized action plan with success checks",
+    "A scenario-appropriate decision tree for triage and escalation",
+    "Escalation packet content for L3/L4 engineering",
+    "Draft artifacts: UTC timeline, decision log, comms template, RCA outline and follow-ups"
+  ]
+}

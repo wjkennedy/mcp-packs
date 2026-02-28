@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "devops.sre.sev1.triage.escalation output",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "needs_context": {
+      "type": "boolean"
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "plan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "step": {
+            "type": "string"
+          },
+          "rationale": {
+            "type": "string"
+          },
+          "success_check": {
+            "type": "string"
+          },
+          "owner": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "step",
+          "success_check"
+        ]
+      }
+    },
+    "decision_tree": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "node": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "yes": {
+            "type": "string"
+          },
+          "no": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "node",
+          "question",
+          "yes",
+          "no"
+        ]
+      }
+    },
+    "incident_artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "timeline_utc": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decision_log": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "escalation_packet": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stakeholder_update_template": {
+          "type": "string"
+        },
+        "change_record_template": {
+          "type": "string"
+        },
+        "rca_outline": {
+          "type": "string"
+        },
+        "followups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "needs_context",
+    "missing_fields"
+  ]
+}
