@@ -57,6 +57,8 @@ Each tool defines its own `inputSchema` and `outputSchema`, so discovery via `li
 3. From another terminal (or your MCP client), issue `call_tool` commands for describe/requirements/plan/execute/validate.
 4. Add pack examples under `examples/` so future contributors can replay minimal and full contexts.
 
+Need a full smoke test? See `examples/full-spectrum-demo.md` for a walkthrough that runs every MCP tool method across growth, revenue, and SEV1 incident packs.
+
 When adding a pack, keep prompts deterministic and ASCII-only. Schemas should fail fast on missing required fields so the server can return `needs_context` plus `missing_fields` instead of hallucinating.
 
 ## Creating new tool heads
