@@ -1,43 +1,37 @@
-low-level MCP server in Python that:
+# MCP Tool Heads
 
-Loads your pack directories from disk (pack.json + schemas + prompts)
+Deterministic MCP stdio server that turns every pack into a reusable, structured tool head. Agents can confidently call `pack.<pack_id>.<method>` and receive machine-validated outputs instead of prose.
 
-Exposes each pack method as a separate MCP tool named pack.<pack_id>.<method>
+![Screenshot of packs directory tree](packs.png)
 
-Enforces required-context checks and returns needs_context plus missing_fields instead of guessing
+## Why this exists
+- Stable schemas for describe/requirements/plan/execute/validate so clients never have to guess.
+- Pure stdio transport via the official `mcp` Python SDK, compatible with Codex MCP and other clients.
+- Packs stay self-contained (`pack.json`, JSON Schemas, prompts, examples). Drop in a new directory and the registry auto-loads it.
+- Templates produce deterministic plans, procedures, and telemetry so higher-level LLMs can reason over them.
 
-Uses structured output (with outputSchema) so clients can validate and treat packs as interchangeable tool heads
-
-It is intentionally deterministic. The tools return structured “plans”, “executions”, and “validations” using rule-based templates. Any tool-calling LLM can then refine outputs if desired, but the server itself is stable and swappable.
-
-Install
+## Quick start
+```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install "mcp[cli]"
-
-The official Python SDK supports low-level MCP servers over stdio with structured output schemas.
-
-Run (stdio transport)
 python server.py --packs-dir ./packs
+```
 
-If you are using a client like Claude Code or an Agents SDK MCP client, configure it to launch this process as a stdio MCP server.
+Register it with Codex once:
+```bash
+codex mcp add pack-registry -- python server.py --packs-dir ./packs
+```
+Inside the Codex TUI, run `/mcp` to confirm the server is live.
 
-Each pack method is a separate tool with its own inputSchema and outputSchema, enabling discovery and interchangeability via list_tools and call_tool.
-
-The server uses the MCP low-level server pattern over stdio, which is the canonical baseline transport and matches the official Python SDK examples.
-
-Structured output schemas are first-class for tools in newer protocol revisions, so callers can treat outputs as machine objects rather than text blobs.
-
-
-
-
+## Pack layout
+```
 packs/
-  funnel.activation-trial-to-paid.v0_1/
+  quote-to-cash.0.1.0/
     pack.json
     schemas/
       context.schema.json
       output.schema.json
-      events.schema.json
     prompts/
       plan.md
       execute.md
@@ -46,39 +40,27 @@ packs/
       context.minimal.json
       context.full.json
       output.example.json
+```
 
+Every pack exports the same tools:
+- `pack.<pack_id>.describe`
+- `pack.<pack_id>.requirements`
+- `pack.<pack_id>.plan`
+- `pack.<pack_id>.execute`
+- `pack.<pack_id>.validate`
 
-How to expose as interchangeable MCP tools
+Each tool defines its own `inputSchema` and `outputSchema`, so discovery via `list_tools` and enforcement via `call_tool` work out of the box.
 
-If you run an MCP server, expose each pack method as a tool. The important part is that every pack has the same method names and stable I/O:
+## Development workflow
+1. Activate the virtualenv and install `mcp[cli]`.
+2. Run `python server.py --packs-dir ./packs`.
+3. From another terminal (or your MCP client), issue `call_tool` commands for describe/requirements/plan/execute/validate.
+4. Add pack examples under `examples/` so future contributors can replay minimal and full contexts.
 
-pack.<pack_id>.describe
+When adding a pack, keep prompts deterministic and ASCII-only. Schemas should fail fast on missing required fields so the server can return `needs_context` plus `missing_fields` instead of hallucinating.
 
-pack.<pack_id>.requirements
+## Creating new tool heads
+Need a fresh capability? Use the [A9 Tool Head Factory](https://chatgpt.com/g/g-69a2c5cac37c8191a43cf47f3ba15721-a9-mcp-tool-head-factory) to bootstrap prompts and schemas, then drop the pack folder under `packs/`. The loader in `server.py` will register it automatically the next time you start the server.
 
-pack.<pack_id>.plan
-
-pack.<pack_id>.execute
-
-pack.<pack_id>.validate
-
-All tools accept JSON, and the pack supplies JSON Schema references for validation. That is what makes them interchangeable “tool heads”.
-
-
-----
-## Setup
-
-    python -m venv .venv
-    source .venv/bin/activate
-    pip install "mcp[cli]"
-
-    python server.py --packs-dir ./packs
-
-    codex mcp add pack-registry -- python server.py --packs-dir ./pack
-
-Then open Codex and check MCP servers:
-
-In the Codex TUI: /mcp shows active MCP servers.
-
-Or run codex mcp --help to see MCP commands.
-
+---
+This repo intentionally avoids secrets and keeps configuration via environment variables such as `PACKS_DIR`, `MCP_SERVER_NAME`, and `MCP_SERVER_VERSION`. Keep contributions deterministic so downstream agents can treat every pack as a predictable tool head.
