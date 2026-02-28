@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/events.schema.json",
+  "type": "array",
+  "minItems": 2,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "event_type": {
+        "type": "string",
+        "enum": [
+          "pack_loaded",
+          "needs_context",
+          "plan_generated",
+          "execution_completed",
+          "validation_passed",
+          "validation_failed"
+        ]
+      },
+      "timestamp_iso": { "type": "string" },
+      "pack_id": { "type": "string" },
+      "version": { "type": "string" },
+      "correlation_id": { "type": "string" },
+      "details": { "type": "object" }
+    },
+    "required": ["event_type", "timestamp_iso", "pack_id", "version", "correlation_id", "details"]
+  }
+}

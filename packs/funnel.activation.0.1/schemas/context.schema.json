@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/context.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "thread_colors": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "problem_type": { "type": "string", "enum": ["funnel", "growth", "activation", "conversion"] },
+        "business_model": { "type": "string", "enum": ["b2b_saas", "b2c", "services", "marketplace", "hybrid"] },
+        "sales_motion": { "type": "string", "enum": ["plg", "sales_led", "hybrid"] },
+        "customer_segment": { "type": "string", "enum": ["smb", "mid_market", "enterprise", "mixed"] },
+        "funnel_stage": { "type": "string", "enum": ["visitor", "signup", "activation", "trial", "paid_conversion", "retention", "renewal"] },
+        "acv_range_usd": { "type": "string", "enum": ["<1000", "1000-10000", "10000-50000", "50000-250000", ">250000", "unknown"] }
+      },
+      "required": ["problem_type", "business_model", "sales_motion", "customer_segment", "funnel_stage", "acv_range_usd"]
+    },
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "trial_type": { "type": "string", "enum": ["time_limited", "feature_limited", "freemium", "sales_assisted_poc", "unknown"] },
+        "primary_user_role": { "type": "string" },
+        "primary_buyer_role": { "type": "string" },
+        "time_to_value_minutes": { "type": "number", "minimum": 0 },
+        "aha_moment_description": { "type": "string" }
+      },
+      "required": ["name", "trial_type"]
+    },
+    "funnel": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stages": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+        "current_activation_definition": { "type": "string" },
+        "conversion_rates": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "visitor_to_signup": { "type": "number", "minimum": 0, "maximum": 1 },
+            "signup_to_activation": { "type": "number", "minimum": 0, "maximum": 1 },
+            "activation_to_trial_start": { "type": "number", "minimum": 0, "maximum": 1 },
+            "trial_start_to_paid": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "dropoff_notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["stages"]
+    },
+    "instrumentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "analytics_stack": { "type": "array", "items": { "type": "string" } },
+        "event_tracking_available": { "type": "boolean" },
+        "warehouse_available": { "type": "boolean" },
+        "feature_flags_available": { "type": "boolean" },
+        "ab_testing_available": { "type": "boolean" },
+        "known_event_gaps": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["event_tracking_available"]
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "engineering_bandwidth_weeks": { "type": "number", "minimum": 0 },
+        "design_bandwidth_weeks": { "type": "number", "minimum": 0 },
+        "data_team_bandwidth_weeks": { "type": "number", "minimum": 0 },
+        "compliance_constraints": { "type": "array", "items": { "type": "string" } },
+        "channels_in_scope": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "signals": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dropoff_detected": { "type": "boolean" },
+        "user_request": { "type": "string" },
+        "seasonality_or_launch_context": { "type": "string" }
+      }
+    }
+  },
+  "required": ["thread_colors", "product", "funnel", "instrumentation"]
+}

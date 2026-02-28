@@ -1,0 +1,24 @@
+{
+  "thread_colors": {
+    "problem_type": "funnel",
+    "business_model": "b2b_saas",
+    "sales_motion": "plg",
+    "customer_segment": "mid_market",
+    "funnel_stage": "trial",
+    "acv_range_usd": "10000-50000"
+  },
+  "product": {
+    "name": "ExampleApp",
+    "trial_type": "time_limited"
+  },
+  "funnel": {
+    "stages": ["visitor", "signup", "activation", "trial_start", "paid"]
+  },
+  "instrumentation": {
+    "event_tracking_available": true
+  },
+  "signals": {
+    "dropoff_detected": true,
+    "user_request": "Improve trial-to-paid conversion"
+  }
+}

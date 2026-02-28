@@ -1,0 +1,127 @@
+{
+  "pack_id": "funnel.activation-trial-to-paid",
+  "name": "Funnel: Activation and Trial-to-Paid Optimization",
+  "version": "0.1.0",
+  "domain_tags": ["funnel", "growth", "activation", "trial-to-paid", "product-led-growth", "b2b-saas"],
+  "summary": "Generates an activation definition, instrumentation plan, experiment backlog, and prioritized funnel improvements for B2B SaaS trial-to-paid conversion.",
+  "compat": {
+    "interfaces": ["llm-structured", "tool-calling", "mcp-tools"],
+    "requires": ["json-schema-validation"],
+    "optional": ["analytics-query-tool", "feature-flag-tool", "ab-test-tool", "crm-tool", "data-warehouse-tool"]
+  },
+  "selection": {
+    "triggers": [
+      {
+        "id": "trigger.funnel.conversion",
+        "when_all": [
+          { "path": "$.thread_colors.problem_type", "op": "eq", "value": "funnel" },
+          { "path": "$.thread_colors.funnel_stage", "op": "in", "value": ["activation", "trial", "paid_conversion"] }
+        ],
+        "confidence": 0.85
+      },
+      {
+        "id": "trigger.metric.dropoff",
+        "when_all": [
+          { "path": "$.signals.dropoff_detected", "op": "eq", "value": true }
+        ],
+        "confidence": 0.8
+      },
+      {
+        "id": "trigger.requested",
+        "when_all": [
+          { "path": "$.signals.user_request", "op": "contains", "value": "trial-to-paid" }
+        ],
+        "confidence": 0.9
+      }
+    ],
+    "anti_triggers": [
+      {
+        "id": "anti_trigger.b2c_only",
+        "when_all": [{ "path": "$.thread_colors.business_model", "op": "eq", "value": "b2c" }],
+        "note": "This pack is tuned for B2B SaaS with trial and procurement considerations."
+      }
+    ]
+  },
+  "schemas": {
+    "context": "schemas/context.schema.json",
+    "output": "schemas/output.schema.json",
+    "events": "schemas/events.schema.json"
+  },
+  "tools": [
+    { "name": "describe", "input_schema": { "type": "object", "properties": {} }, "output_schema_ref": "#/definitions/DescribeResult" },
+    { "name": "requirements", "input_schema": { "type": "object", "properties": {} }, "output_schema_ref": "#/definitions/RequirementsResult" },
+    { "name": "plan", "input_schema_ref": "schemas/context.schema.json", "output_schema_ref": "#/definitions/PlanResult", "prompt": "prompts/plan.md" },
+    { "name": "execute", "input_schema_ref": "schemas/context.schema.json", "output_schema_ref": "schemas/output.schema.json", "prompt": "prompts/execute.md" },
+    { "name": "validate", "input_schema": { "type": "object", "properties": { "context": { "$ref": "schemas/context.schema.json" }, "outputs": { "$ref": "schemas/output.schema.json" } }, "required": ["context", "outputs"] }, "output_schema_ref": "#/definitions/ValidateResult", "prompt": "prompts/validate.md" }
+  ],
+  "runtime_contract": {
+    "missing_context_behavior": "return_needs_context",
+    "assumptions_policy": "must_declare",
+    "output_validation": "must_conform_to_schema",
+    "telemetry": "must_emit_minimum_events"
+  },
+  "definitions": {
+    "DescribeResult": {
+      "type": "object",
+      "properties": {
+        "pack_id": { "type": "string" },
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "summary": { "type": "string" },
+        "domain_tags": { "type": "array", "items": { "type": "string" } },
+        "primary_outcomes": { "type": "array", "items": { "type": "string" } },
+        "trigger_hints": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["pack_id", "name", "version", "summary", "domain_tags", "primary_outcomes", "trigger_hints"]
+    },
+    "RequirementsResult": {
+      "type": "object",
+      "properties": {
+        "required_fields": { "type": "array", "items": { "type": "string" } },
+        "recommended_fields": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["required_fields", "recommended_fields", "notes"]
+    },
+    "PlanResult": {
+      "type": "object",
+      "properties": {
+        "needs_context": { "type": "boolean" },
+        "missing_fields": { "type": "array", "items": { "type": "string" } },
+        "assumptions": { "type": "array", "items": { "type": "string" } },
+        "plan_steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "step_id": { "type": "string" },
+              "title": { "type": "string" },
+              "rationale": { "type": "string" },
+              "success_check": { "type": "string" },
+              "inputs_needed": { "type": "array", "items": { "type": "string" } },
+              "outputs_produced": { "type": "array", "items": { "type": "string" } }
+            },
+            "required": ["step_id", "title", "rationale", "success_check", "inputs_needed", "outputs_produced"]
+          }
+        }
+      },
+      "required": ["needs_context", "missing_fields", "assumptions", "plan_steps"]
+    },
+    "ValidateResult": {
+      "type": "object",
+      "properties": {
+        "passed": { "type": "boolean" },
+        "issues": { "type": "array", "items": { "type": "string" } },
+        "fixes": { "type": "array", "items": { "type": "string" } },
+        "quality_gates": { "type": "array", "items": { "type": "object", "properties": { "gate": { "type": "string" }, "status": { "type": "string", "enum": ["pass", "fail"] }, "evidence": { "type": "string" } }, "required": ["gate", "status", "evidence"] } }
+      },
+      "required": ["passed", "issues", "fixes", "quality_gates"]
+    }
+  },
+  "primary_outcomes": [
+    "Clear activation event definition that correlates with retention and paid conversion",
+    "Instrumentation plan and event taxonomy ready for implementation",
+    "Prioritized experiment backlog with success metrics and stopping rules",
+    "Funnel hypothesis map and top drop-off causes with remediation options"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/output.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "needs_context": { "type": "boolean" },
+    "missing_fields": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "activation_definition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "activation_event_name": { "type": "string" },
+        "activation_event_description": { "type": "string" },
+        "criteria": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "time_window_hours": { "type": "number", "minimum": 0 },
+        "reasoning": { "type": "string" }
+      },
+      "required": ["activation_event_name", "activation_event_description", "criteria", "time_window_hours", "reasoning"]
+    },
+    "event_taxonomy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "events": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string" },
+              "type": { "type": "string", "enum": ["identify", "track", "page", "group"] },
+              "properties": { "type": "array", "items": { "type": "string" } },
+              "required": { "type": "boolean" },
+              "notes": { "type": "string" }
+            },
+            "required": ["name", "type", "properties", "required", "notes"]
+          }
+        }
+      },
+      "required": ["events"]
+    },
+    "instrumentation_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gaps": { "type": "array", "items": { "type": "string" } },
+        "implementation_steps": { "type": "array", "items": { "type": "string" } },
+        "data_quality_checks": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["gaps", "implementation_steps", "data_quality_checks"]
+    },
+    "hypotheses": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "statement": { "type": "string" },
+          "funnel_stage": { "type": "string" },
+          "likely_cause": { "type": "string" },
+          "evidence_needed": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["id", "statement", "funnel_stage", "likely_cause", "evidence_needed"]
+      }
+    },
+    "experiment_backlog": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "experiment_id": { "type": "string" },
+          "title": { "type": "string" },
+          "type": { "type": "string", "enum": ["copy", "ux", "pricing", "onboarding", "email", "in_app_prompt", "sales_assist", "performance", "instrumentation"] },
+          "target_metric": { "type": "string" },
+          "success_threshold": { "type": "string" },
+          "duration_days": { "type": "number", "minimum": 1 },
+          "risk": { "type": "string", "enum": ["low", "medium", "high"] },
+          "effort": { "type": "string", "enum": ["s", "m", "l"] },
+          "dependencies": { "type": "array", "items": { "type": "string" } },
+          "stopping_rule": { "type": "string" }
+        },
+        "required": ["experiment_id", "title", "type", "target_metric", "success_threshold", "duration_days", "risk", "effort", "dependencies", "stopping_rule"]
+      }
+    },
+    "prioritized_actions": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rank": { "type": "number", "minimum": 1 },
+          "action": { "type": "string" },
+          "why": { "type": "string" },
+          "owner": { "type": "string", "enum": ["product", "engineering", "design", "data", "growth", "sales"] },
+          "expected_impact": { "type": "string" }
+        },
+        "required": ["rank", "action", "why", "owner", "expected_impact"]
+      }
+    },
+    "telemetry_events": { "$ref": "schemas/events.schema.json" }
+  },
+  "required": ["needs_context", "missing_fields", "assumptions", "telemetry_events"]
+}
